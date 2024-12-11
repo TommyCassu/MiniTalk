@@ -1,32 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minitalk.h                                         :+:      :+:    :+:   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tcassu <tcassu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/06 17:17:28 by tcassu            #+#    #+#             */
-/*   Updated: 2024/12/11 14:53:59 by tcassu           ###   ########.fr       */
+/*   Created: 2024/10/03 23:48:04 by marvin            #+#    #+#             */
+/*   Updated: 2024/11/04 19:56:11 by tcassu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINITALK_H
-#define MINITALK_H
+#include "libft.h"
 
-
-# include <unistd.h>
-# include <stdio.h>
-# include <stdlib.h>
-# include <signal.h>
-# include "libft/libft.h"
-
-typedef	struct global_storage
+char	*ft_strdup(const char *str)
 {
+	char	*result;
 	int		i;
-	int		byte[8];
-	int		c_pid;
-	char	*content;
-}			t_storage;
+	int		size;
 
-
-#endif
+	i = 0;
+	size = ft_strlen(str);
+	result = (char *)malloc(sizeof(char) * size + 1);
+	if (result == NULL)
+		return (0);
+	while (str[i] != '\0')
+	{
+		result[i] = str[i];
+		i++;
+	}
+	result[i] = '\0';
+	return (result);
+}

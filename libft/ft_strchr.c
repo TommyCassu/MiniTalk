@@ -1,32 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minitalk.h                                         :+:      :+:    :+:   */
+/*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tcassu <tcassu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/06 17:17:28 by tcassu            #+#    #+#             */
-/*   Updated: 2024/12/11 14:53:59 by tcassu           ###   ########.fr       */
+/*   Created: 2024/10/04 22:44:28 by marvin            #+#    #+#             */
+/*   Updated: 2024/11/04 19:57:50 by tcassu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINITALK_H
-#define MINITALK_H
+#include "libft.h"
 
-
-# include <unistd.h>
-# include <stdio.h>
-# include <stdlib.h>
-# include <signal.h>
-# include "libft/libft.h"
-
-typedef	struct global_storage
+char	*ft_strchr(const char *s, int c)
 {
-	int		i;
-	int		byte[8];
-	int		c_pid;
-	char	*content;
-}			t_storage;
+	int	i;
 
-
-#endif
+	i = 0;
+	while (s[i] != '\0')
+	{
+		if (s[i] == (char)c)
+			return ((char *)s);
+		s++;
+	}
+	if ((char)c == '\0')
+		return ((char *)s);
+	return (NULL);
+}

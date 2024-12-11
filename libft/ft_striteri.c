@@ -1,32 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minitalk.h                                         :+:      :+:    :+:   */
+/*   ft_striteri.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tcassu <tcassu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/06 17:17:28 by tcassu            #+#    #+#             */
-/*   Updated: 2024/12/11 14:53:59 by tcassu           ###   ########.fr       */
+/*   Created: 2024/10/30 22:21:36 by toto              #+#    #+#             */
+/*   Updated: 2024/11/04 19:55:09 by tcassu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINITALK_H
-#define MINITALK_H
+#include "libft.h"
 
-
-# include <unistd.h>
-# include <stdio.h>
-# include <stdlib.h>
-# include <signal.h>
-# include "libft/libft.h"
-
-typedef	struct global_storage
+void	ft_striteri(char *s, void (*f)(unsigned int, char *))
 {
-	int		i;
-	int		byte[8];
-	int		c_pid;
-	char	*content;
-}			t_storage;
+	unsigned int	i;
 
-
-#endif
+	i = 0;
+	if (s && f)
+	{
+		while (*s)
+		{
+			f(i, s);
+			i++;
+			s++;
+		}
+	}
+}

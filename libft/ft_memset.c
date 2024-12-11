@@ -1,32 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minitalk.h                                         :+:      :+:    :+:   */
+/*   ft_memset.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tcassu <tcassu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/06 17:17:28 by tcassu            #+#    #+#             */
-/*   Updated: 2024/12/11 14:53:59 by tcassu           ###   ########.fr       */
+/*   Created: 2024/10/03 23:35:30 by marvin            #+#    #+#             */
+/*   Updated: 2024/11/05 13:59:09 by tcassu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINITALK_H
-#define MINITALK_H
+#include "libft.h"
 
-
-# include <unistd.h>
-# include <stdio.h>
-# include <stdlib.h>
-# include <signal.h>
-# include "libft/libft.h"
-
-typedef	struct global_storage
+void	*ft_memset(void *s, int c, size_t n)
 {
-	int		i;
-	int		byte[8];
-	int		c_pid;
-	char	*content;
-}			t_storage;
+	size_t	i;
 
-
-#endif
+	i = 0;
+	while (i < n)
+	{
+		((unsigned char *)s)[i] = c;
+		i++;
+	}
+	return (s);
+}

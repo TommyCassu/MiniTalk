@@ -1,32 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minitalk.h                                         :+:      :+:    :+:   */
+/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tcassu <tcassu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/06 17:17:28 by tcassu            #+#    #+#             */
-/*   Updated: 2024/12/11 14:53:59 by tcassu           ###   ########.fr       */
+/*   Created: 2024/10/31 19:03:00 by toto              #+#    #+#             */
+/*   Updated: 2024/11/04 19:59:11 by tcassu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINITALK_H
-#define MINITALK_H
+#include "libft.h"
 
-
-# include <unistd.h>
-# include <stdio.h>
-# include <stdlib.h>
-# include <signal.h>
-# include "libft/libft.h"
-
-typedef	struct global_storage
+void	ft_putnbr_fd(int n, int fd)
 {
-	int		i;
-	int		byte[8];
-	int		c_pid;
-	char	*content;
-}			t_storage;
+	long	nbr;
 
-
-#endif
+	nbr = n;
+	if (nbr < 0)
+	{
+		ft_putchar_fd('-', fd);
+		nbr *= -1;
+	}
+	if (nbr > 9)
+	{
+		ft_putnbr_fd((nbr / 10), fd);
+		ft_putchar_fd((nbr % 10 + '0'), fd);
+	}
+	else
+		ft_putchar_fd(nbr + '0', fd);
+}
