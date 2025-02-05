@@ -6,7 +6,7 @@
 /*   By: tcassu <tcassu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/06 17:16:42 by tcassu            #+#    #+#             */
-/*   Updated: 2025/01/31 02:35:02 by tcassu           ###   ########.fr       */
+/*   Updated: 2025/02/05 02:32:13 by tcassu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,36 +16,36 @@
 #include <signal.h>
 #include <unistd.h>
 // Handler signal
-void signal_handler(int signum, siginfo_t *info, void *context)
+void	signal_handler(int signum, siginfo_t *info, void *context)
 {
-    static int octet = 0;
-    static unsigned int nbBits = 0;
-    
-    (void)context;
-    //printf("Signal reçu: %s, Bit: %d\n", signum == SIGUSR1 ? "SIGUSR1" : "SIGUSR2", nbBits);
-    
-    if (kill(info->si_pid, 0) < 0)
-    {
-        perror("Erreur de vérification du PID client");
-        return;
-    }
-    
-    if (signum == SIGUSR1)
-		octet = (octet << 1);
-	if (signum == SIGUSR2)
-		octet = (octet << 1) |1;
-    nbBits++;
-    if (nbBits == 8)
-    {
-        printf("qweeqwe qweqweqwe %c\n", octet);
-        nbBits = 0;
-        octet = 0;
-    }
+	static int			octet = 0;
+	static unsigned int	nbbits = 0;
+
+	(void)context;
+	if (kill(info->si_pid, 0) < 0)
+	{
+		perror("Erreur de vérification du PID client");
+		return ;
+	}
+	octet = (octet << 1) | (signum == SIGUSR1);
+	nbbits++;
+	if (nbbits == 8 && octet != '\0')
+	{
+		ft_putchar_fd(octet, 1);
+		nbbits = 0;
+		octet = 0;
+	}
+	else if (octet == '\0' && nbbits == 8)
+	{
+		nbbits = 0;
+		kill(info->si_pid, SIGUSR2);
+	}
+	kill(info->si_pid, SIGUSR1);
 }
 
 // Initialisation Signal
-
-void	initialisation_sig(int sig, void (*signal_handler)(int, siginfo_t *, void *))
+void	initialisation_sig(int sig, void (*signal_handler)
+	(int, siginfo_t *, void *))
 {
 	struct sigaction	client;
 
@@ -56,17 +56,14 @@ void	initialisation_sig(int sig, void (*signal_handler)(int, siginfo_t *, void *
 		sigaction(SIGUSR1, &client, NULL);
 	else if (sig == SIGUSR2)
 		sigaction(SIGUSR2, &client, NULL);
-	
 }
 
 int	main(void)
 {
 	int	pid;
-	// Header
-	print_header();
+
 	pid = getpid();
-	printf("                      %d\n", pid);
-	// Signal
+	printf("PID : %d\n", pid);
 	initialisation_sig(SIGUSR1, &signal_handler);
 	initialisation_sig(SIGUSR2, &signal_handler);
 	while (1)

@@ -6,11 +6,11 @@
 #    By: tcassu <tcassu@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/11 01:58:24 by tcassu            #+#    #+#              #
-#    Updated: 2024/12/11 15:16:10 by tcassu           ###   ########.fr        #
+#    Updated: 2025/02/05 02:22:39 by tcassu           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SRC			= server.c client.c header.c
+SRC			= server.c client.c
 
 SRCS 		= ${SRC}
 
