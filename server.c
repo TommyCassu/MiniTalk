@@ -6,7 +6,7 @@
 /*   By: tcassu <tcassu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/06 17:16:42 by tcassu            #+#    #+#             */
-/*   Updated: 2025/03/27 01:44:10 by tcassu           ###   ########.fr       */
+/*   Updated: 2025/03/27 15:23:08 by tcassu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,38 +18,20 @@
 
 char	*g_line = NULL;
 
-
-size_t	ft_strlenbis(char *str)
-{
-	size_t	i;
-	
-	i = 0;
-	while (str[i] != '\0')
-		i++;
-	return (i);
-}
-char	*ft_strjoinbis(char *s1, char s2)
-{
-	int		i;
-	int		size;
-	char	*result;
-
-	i = 0;
-	size = ft_strlenbis(s1) + 1;
-	result = (char *)malloc(sizeof(char) * (size + 1));
-	if (!result)
-		return (NULL);
-	while (s1[i] != '\0')
-	{
-		result[i] = s1[i];
-		i++;
-	}
-	result[i++] = s2;
-	result[i] = '\0';
-	free(s1);
-	return (result);
-}
 // Handler signal
+
+static void	handle_complete_byte(int octet, siginfo_t *info)
+{
+	if (octet != '\0')
+		g_line = ft_strjoinbis(g_line, octet);
+	else
+	{
+		ft_putstr_fd(g_line, 1);
+		free(g_line);
+		g_line = NULL;
+		kill(info->si_pid, SIGUSR2);
+	}
+}
 
 void	signal_handler(int signum, siginfo_t *info, void *context)
 {
@@ -65,19 +47,11 @@ void	signal_handler(int signum, siginfo_t *info, void *context)
 		return ;
 	}
 	octet = (octet << 1) | (signum == SIGUSR1);
-	if (++nbbits == 8 && octet != '\0')
+	if (++nbbits == 8)
 	{
-		g_line = ft_strjoinbis(g_line, octet);
+		handle_complete_byte(octet, info);
 		nbbits = 0;
 		octet = 0;
-	}
-	else if (octet == '\0' && nbbits == 8)
-	{
-		ft_putstr_fd(g_line, 1);
-		free(g_line);
-		g_line = NULL;
-		nbbits = 0;
-		kill(info->si_pid, SIGUSR2);
 	}
 	kill(info->si_pid, SIGUSR1);
 }
