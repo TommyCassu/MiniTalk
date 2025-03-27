@@ -6,7 +6,7 @@
 /*   By: tcassu <tcassu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/06 17:17:28 by tcassu            #+#    #+#             */
-/*   Updated: 2025/02/05 02:46:17 by tcassu           ###   ########.fr       */
+/*   Updated: 2025/03/27 15:28:32 by tcassu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,4 +21,5 @@
 # include <strings.h>
 # include "libft/libft.h"
 
+char	*ft_strjoinbis(char *s1, char s2);
 #endif

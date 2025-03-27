@@ -6,11 +6,11 @@
 #    By: tcassu <tcassu@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/11 01:58:24 by tcassu            #+#    #+#              #
-#    Updated: 2025/02/05 02:22:39 by tcassu           ###   ########.fr        #
+#    Updated: 2025/03/27 15:28:57 by tcassu           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SRC			= server.c client.c
+SRC			= server.c client.c utils.c
 
 SRCS 		= ${SRC}
 
@@ -41,7 +41,7 @@ ${NAME}:	${OBJS}
 			${AR} ${NAME} ${OBJS}
 			${RANLIB} ${NAME}
 			cd libft && $(MAKE)
-			$(GCC) -o server server.c $(NAME) $(LIBFLAGS)
+			$(GCC) -o server server.c utils.c $(NAME) $(LIBFLAGS)
 			$(GCC) -o client client.c $(NAME) $(LIBFLAGS)
 
 clean:
